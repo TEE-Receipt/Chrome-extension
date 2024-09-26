@@ -1,0 +1,47 @@
+{
+  "manifest_version": 2,
+  "key":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi9hbsBDUFcC08hWpLZFDv6AR2F6TfvSynF2kMu0x+Y8t8qNIgiLZNF3ialg+A5NllNY18y6qjnggq+HB0bD1PW9kcDgQTn1Ny6frJhVh80ok9BcC0As02BEghz74m1ztcK8p2FsA+h7AhU2+b+0mNonjLbGwxr+yflzMrRvU8WiDsRbuAvTPnTcCx6TnylHZf/Us63feFyLQGSD8jWeCrhzVfuE0uVLX1SnHhWj97u8fRCTj4x3w5pS3Yk0zj8J+3u031p/FPJVE9XXhsVLOp/J1qZt/OnjJJmh7FcSWK/4DpvZ9usZd/caxvXblBMHyhPXQD/JPr4/yoyBMuR2LxwIDAQAB",
+  "name": "SafeKeeper",
+  "description": "This extension will obtain an SGX quote from a remote SGX enclave, if the site supports it, and highlight the fields that are going be sent over an encrypted channel to the enclave, so that the server does not see them in clear.",
+  "version": "0.8.2",
+  "browser_action": {
+    "default_icon": "images/cross_small.png",
+    "default_popup": "html/not_supported.html"
+  },
+
+  "background": {
+    "scripts": ["deps/jquery/jquery.min.js", "deps/kjur/jsrsasign-all-min.js",
+                "deps/jsbn/jsbn-min.js", "deps/aesjs/index.js", "js/background.js","deps/sjcl/sjcl.min.js","deps/ecdsa/src/browser.js"]
+  },
+
+  "content_scripts": [ {
+    "matches": [
+      "<all_urls>"
+    ],
+    "css": ["deps/jquery/jquery-ui.min.css"],
+    "js": ["deps/jquery/jquery.min.js","deps/kjur/jsrsasign-all-min.js", "deps/jquery/jquery-ui.min.js",
+           "deps/aesjs/index.js","deps/jsbn/jsbn-min.js" ,"deps/sjcl/sjcl.js", "js/content.js","deps/ecdsa/src/browser.js"],
+    "run_at": "document_start"
+  } ],
+  "oauth2": {
+      "client_id": "483083253324-gedh6m1felocdrf7nubkkf30g89d9a5k.apps.googleusercontent.com",
+      "scopes": [
+          "profile email",
+          "https://www.googleapis.com/auth/contacts",
+          "https://www.googleapis.com/auth/drive"
+      ]
+  },
+  "permissions": [
+    "identity",
+    "identity.email",
+    "tabs",
+    "activeTab",
+    "storage",
+    "webRequest",
+    "webNavigation",
+    "webRequestBlocking",
+    "http://*/*",
+    "https://*/*",
+    "file://*/*"
+  ]
+}
